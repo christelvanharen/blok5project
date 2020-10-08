@@ -2,15 +2,16 @@
 for number in {1..3}
 do 
 
-if [ "$number" -eq "1" ] ; then   #Number wordt hier niet herkend als een variabele
+if [ "$number" -eq "1" ] ; then
     mv thioredoxine_swissprot.fasta thioredoxine_swissprot$number.fasta
     
     else
     previousnum = $number-1
-    mv hmmsearch_swissprot$previousnum thioredoxine_swissprot$number.fasta   #hmmsearch_swissprot$number - $number moet -1 zijn om de vorige iter te pakken
+    esl-reformat -o hmmsearch_swissprot$number.fasta hmmsearch_swissprot$number.sto
+    mv hmmsearch_swissprot$previousnum.fasta thioredoxine_swissprot$number.fasta
     fi
 
-python3 pipeline.py thioredoxine_swissprot$number.fasta muscle_swissprot$number.fasta hmmbuild_swissprot_muscle$number hmmsearch_swissprot$number uniprot_sprot.fasta $number
+python3 pipeline.py thioredoxine_swissprot$number.fasta muscle_swissprot$number.fasta hmmbuild_swissprot_muscle$number hmmsearch_swissprot$number.sto uniprot_sprot.fasta $number
 
 
 echo "Number: $number"
