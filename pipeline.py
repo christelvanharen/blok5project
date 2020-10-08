@@ -2,6 +2,7 @@ import os
 import subprocess
 from sys import argv
 
+
 def muscle(input_fasta, output_fasta):
         """
         Run muscle op de command line
@@ -28,18 +29,18 @@ def hmmbuild(hmmbuild_fasta, output_fasta):
                 cmd = "hmmbuild --amino {} {}".format(hmmbuild_fasta, output_fasta)
                 e = subprocess.check_call(cmd, shell=True)
 
-def hmmsearch(hmmsearch_fasta, hmmbuild_fasta, database):
+def hmmsearch(hmmsearch_sto, hmmbuild_fasta, database):
         """
         Run hmmsearch op de command line
         Arguments:
-        hmmsearch_fasta - str - naam output voor de hmmsearch
+        hmmsearch_sto - str - naam output voor de hmmsearch
         hmmbuild_fasta - str - fasta voor de hmmsearch
         database - str - de input voor de database
         """
-        if os.path.isfile(hmmsearch_fasta):
+        if os.path.isfile(hmmsearch_sto):
                 print("HMMsearch is al uitgevoerd")
         else:
-                cmd = "hmmsearch -o {} {} {}".format(hmmsearch_fasta, hmmbuild_fasta, database)
+                cmd = "hmmsearch -A {} {} {}".format(hmmsearch_sto, hmmbuild_fasta, database)
                 e = subprocess.check_call(cmd, shell=True)
 
 def main():
@@ -54,12 +55,13 @@ def main():
         print("Output HMMbuild: ", hmmbuild_fasta)
         hmmbuild(hmmbuild_fasta, output_fasta)
         hmmbuild_fasta = argv[3]
-        hmmsearch_fasta = argv[4]
+        hmmsearch_sto = argv[4]
         database = argv[5]
         print("Input HMMsearch: ", hmmbuild_fasta)
-        print("Output HMMsearch ", hmmsearch_fasta)
+        print("Output HMMsearch ", hmmsearch_sto)
         print("Database: ", database)
-        hmmsearch(hmmsearch_fasta, hmmbuild_fasta, database)
+        hmmsearch(hmmsearch_sto, hmmbuild_fasta, database)
 
 
 main()
+
