@@ -52,15 +52,15 @@ def hmmsearch(hmmsearch_sto, hmmbuild_fasta, database):
 
 def main():
         input_fasta = argv[1]
-        output_fasta = argv[2]
+        output_muscle = argv[2]
         print("Input MUSCLE: ", input_fasta)
-        print("Output MUSCLE: ", output_fasta)
-        muscle(input_fasta, output_fasta)
-        output_fasta = argv[2]
+        print("Output MUSCLE: ", output_muscle)
+        muscle(input_fasta, output_muscle)
+        output_muscle = argv[2]
         hmmbuild_fasta = argv[3]
-        print("Input HMMbuild: ", output_fasta)
+        print("Input HMMbuild: ", output_muscle)
         print("Output HMMbuild: ", hmmbuild_fasta)
-        hmmbuild(hmmbuild_fasta, output_fasta)
+        hmmbuild(hmmbuild_fasta, output_muscle)
         hmmbuild_fasta = argv[3]
         hmmsearch_sto = argv[4]
         database = argv[5]
