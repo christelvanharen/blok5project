@@ -2,40 +2,47 @@ import os
 import subprocess
 from sys import argv
 
+def muscle(input_fasta, output_muscle):
+        """
+        De MUSCLE tool wordt hier gerund met behulp van iteraties.sh
+        Args:
+                input_fasta: een FASTA bestand met sequenties
+                output_muscle: een MSA
 
-def muscle(input_fasta, output_fasta):
+        Returns: output_muscle
         """
-        Run muscle op de command line
-        Arguments:
-        input_fasta - str - fasta voor msa
-        output_fasta - str - naam output met msa
-        """
-        if os.path.isfile(output_fasta):
+        if os.path.isfile(output_muscle):
                 print("MUSCLE is al uitgevoerd")
         else:
-                cmd = "muscle -in {} -out {}".format(input_fasta, output_fasta)
+                cmd = "muscle -in {} -out {}".format(input_fasta,
+                                                     output_muscle)
                 e = subprocess.check_call(cmd, shell=True)
 
-def hmmbuild(hmmbuild_fasta, output_fasta):
+def hmmbuild(hmmbuild_fasta, output_muscle):
         """
-        Run hmmbuild op de command line
-        Arguments:
-        hmmbuild_fasta - str - naam output voor de hmmbuild
-        output_fasta - str - fasta voor de hmmbuild
+        De HMMbuild wordt gerund met de output_muscle file
+        Args:
+                hmmbuild_fasta: de output van deze functie
+                output_muscle: de MSA uit MUSCLE
+
+        Returns: hmmbuild_fasta
         """
         if os.path.isfile(hmmbuild_fasta):
                 print("HMMbuild is al uitgevoerd")
         else:
-                cmd = "hmmbuild --amino {} {}".format(hmmbuild_fasta, output_fasta)
+                cmd = "hmmbuild --amino {} {}".format(hmmbuild_fasta,
+                                                      output_muscle)
                 e = subprocess.check_call(cmd, shell=True)
 
 def hmmsearch(hmmsearch_sto, hmmbuild_fasta, database):
         """
-        Run hmmsearch op de command line
-        Arguments:
-        hmmsearch_sto - str - naam output voor de hmmsearch
-        hmmbuild_fasta - str - fasta voor de hmmsearch
-        database - str - de input voor de database
+        De HMMsearch wordt gerund met de hmmbuild_fasta file
+        Args:
+                hmmsearch_sto: de output file in STOCKHOLM format
+                hmmbuild_fasta: de input file, afkomstig van HMMbuild
+                database: de database die gebruikt wordt
+
+        Returns: hmmsearch_sto
         """
         if os.path.isfile(hmmsearch_sto):
                 print("HMMsearch is al uitgevoerd")
