@@ -47,7 +47,9 @@ def hmmsearch(hmmsearch_sto, hmmbuild_fasta, database):
         if os.path.isfile(hmmsearch_sto):
                 print("HMMsearch is al uitgevoerd")
         else:
-                cmd = "hmmsearch -A {} {} {}".format(hmmsearch_sto, hmmbuild_fasta, database)
+                cmd = "hmmsearch -A {} {} {}".format(hmmsearch_sto,
+                                                     hmmbuild_fasta,
+                                                     database)
                 e = subprocess.check_call(cmd, shell=True)
 
 def main():
